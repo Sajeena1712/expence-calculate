@@ -1,84 +1,28 @@
-let expenses = [];
-let totalAmount = 0;
+document.getElementById('task-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-const categorySelect = document.getElementById('category-select');
-const amountInput = document.getElementById('amount-input');
-const dateInput = document.getElementById('date-input');
-const addBtn = document.getElementById('add-btn');
-const expensesTableBody = document.getElementById('expnese-table-body');
-const totalAmountCell = document.getElementById('total-amount');
+    const taskInput = document.getElementById('task-input');
+    const taskText = taskInput.value;
 
-addBtn.addEventListener('click', function() {
-    const category = categorySelect.value;
-    const amount = Number(amountInput.value);
-    const date = dateInput.value;
+    const taskList = document.getElementById('task-list');
+    const listItem = document.createElement('li');
 
-    if (category === '') {
-        alert('Please select a category');
-        return;
-    }
-    if (isNaN(amount) || amount <= 0) {
-        alert('Please enter a valid amoun')
-        return;
-    }
-    if (date === '') {
-        alert('Please select a date')
-        return;
-    }
-    expenses.push({ category, amount, date });
+    listItem.innerHTML = `
+        <span>${taskText}</span>
+        <button class="complete-btn">✔</button>
+        <button class="delete-btn">✖</button>
+    `;
 
-    totalAmount += amount;
-    totalAmountCell.textContent = totalAmount;
+    taskList.appendChild(listItem);
+    taskInput.value = '';
 
-    const newRow = expensesTableBody.insertRow();
-
-    const categoryCell = newRow.insertCell();
-    const amountCell = newRow.insertCell();
-    const dateCell = newRow.insertCell();
-    const deleteCell = newRow.insertCell();
-    const deleteBtn = document.createElement('button');
-
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.classList.add('delete-btn');
-    deleteBtn.addEventListener('click', function() {
-        expenses.splice(expenses.indexOf(expense), 1);
-
-        totalAmount -= expense.amount;
-        totalAmountCell.textContent = totalAmount;
-
-        expensesTableBody.removeChild(newRow);
+    // Complete task functionality
+    listItem.querySelector('.complete-btn').addEventListener('click', function() {
+        listItem.querySelector('span').classList.toggle('completed');
     });
 
-    const expense = expenses[expenses.length - 1];
-    categoryCell.textContent = expense.category;
-    amountCell.textContent = expense.amount;
-    dateCell.textContent = expense.date;
-    deleteCell.appendChild(deleteBtn);
-
+    // Delete task functionality
+    listItem.querySelector('.delete-btn').addEventListener('click', function() {
+        taskList.removeChild(listItem);
+    });
 });
-
-for (const expense of expenses) {
-    totalAmount += expense.amount;
-    totalAmountCell.textContent = totalAmount;
-
-    const newRow = expensesTableBody.inserRow();
-    const categoryCell = newRow.insertCell();
-    const amountCell = newRow.insertCell();
-    const dateCell = newRow.insertCell();
-    const deleteCell = newRow.insertCell();
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.classList.add('delete-btn');
-    deleteBtn.addEventListener('click', function() {
-        expenses.splice(expenses.indexOf(expense), 1);
-
-        totalAmount -= expense.amount;
-        totalAmountCell.textContent = totalAmount;
-
-        expensesTableBody.removeChild(newRow);
-    });
-    categoryCell.textContent = expense.category;
-    amountCell.textContent = expense.amount;
-    dateCell.textContent = expense.date;
-    deleteCell.appendChild(deleteBtn);
-}

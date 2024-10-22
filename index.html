@@ -3,29 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Task Tracker</title>
 </head>
 <body>
     <div class="container">
-        <h1>Expense Calculator</h1>
-        
-        <div class="form-group">
-            <label for="item">Expense Item:</label>
-            <input type="text" id="item" placeholder="Enter item name">
-        </div>
-        
-        <div class="form-group">
-            <label for="cost">Cost:</label>
-            <input type="number" id="cost" placeholder="Enter cost">
-        </div>
-        
-        <button onclick="addExpense()">Add Expense</button>
-        
-        <h2>Expenses:</h2>
-        <ul id="expenseList"></ul>
-        
-        <h2>Total Expense: <span id="total">0</span></h2>
+        <h1>Task Tracker</h1>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Add a new task..." required>
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="task-list"></ul>
     </div>
 
     <script src="script.js"></script>
